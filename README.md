@@ -1,3 +1,5 @@
+## This is a repository where I store files from my React learning sessions based on "React - The Complete Guide (Includes Hooks, React Router, and Redux) - Second Edition" by Maximilian Schwarzmüller
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
