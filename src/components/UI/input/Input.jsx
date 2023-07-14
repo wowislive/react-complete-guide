@@ -3,7 +3,7 @@ import styles from "./Input.module.css";
 
 const Input = React.forwardRef((props, ref) => {
   return (
-    <div className={styles.input}>
+    <div className={`${styles.input} ${props.className}`}>
       <label>{props.label}</label>
       <input
         ref={ref}

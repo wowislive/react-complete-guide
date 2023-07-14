@@ -9,25 +9,42 @@ const CartContext = React.createContext({
 
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
-    return {
-      meals: state.meals.concat(action.meal),
-      totalPrice: state.totalPrice + action.meal.price * action.meal.amount,
-    };
+    const mealIndex = state.meals.findIndex(
+      (meal) => meal.id === action.meal.id
+    );
+    if (state.meals[mealIndex]) {
+      const updatedMeals = [...state.meals];
+      updatedMeals[mealIndex].amount =
+        updatedMeals[mealIndex].amount + action.meal.amount;
+      return {
+        meals: updatedMeals,
+        totalPrice: state.totalPrice + action.meal.price * action.meal.amount,
+      };
+    } else {
+      return {
+        meals: state.meals.concat(action.meal),
+        totalPrice: state.totalPrice + action.meal.price * action.meal.amount,
+      };
+    }
   }
   if (action.type === "REMOVE") {
     const mealIndex = state.meals.findIndex((meal) => meal.id === action.id);
-    return {
-      meals: state.meals.filter((obj) => obj.id !== action.id),
-      totalPrice:
-        state.totalPrice -
-        action.meals[mealIndex].price * action.meals[mealIndex].amount,
-    };
+    if (state.meals[mealIndex].amount === 1) {
+      return {
+        meals: state.meals.filter((obj) => obj.id !== action.id),
+        totalPrice:
+          state.totalPrice -
+          state.meals[mealIndex].price * state.meals[mealIndex].amount,
+      };
+    } else {
+      const updatedMeals = [...state.meals];
+      updatedMeals[mealIndex].amount = updatedMeals[mealIndex].amount - 1;
+      return {
+        meals: updatedMeals,
+        totalPrice: state.totalPrice - state.meals[mealIndex].price,
+      };
+    }
   }
-
-  return {
-    meals: [],
-    totalPrice: 0,
-  };
 };
 
 export const CartContextProvider = (props) => {

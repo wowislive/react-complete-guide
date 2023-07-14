@@ -8,7 +8,7 @@ const MealItemForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.addItem(amountInput.current.value);
+    props.addItem(+amountInput.current.value);
   };
 
   return (
