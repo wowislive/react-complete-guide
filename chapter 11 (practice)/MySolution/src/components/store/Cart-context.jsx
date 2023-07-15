@@ -32,9 +32,7 @@ const cartReducer = (state, action) => {
     if (state.meals[mealIndex].amount === 1) {
       return {
         meals: state.meals.filter((obj) => obj.id !== action.id),
-        totalPrice:
-          state.totalPrice -
-          state.meals[mealIndex].price * state.meals[mealIndex].amount,
+        totalPrice: state.totalPrice - state.meals[mealIndex].price,
       };
     } else {
       const updatedMeals = [...state.meals];
